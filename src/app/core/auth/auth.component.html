@@ -1,0 +1,21 @@
+<ng-container *ngIf="!currentUser; else userIsLoggedIn">
+  <form (submit)="signIn()" [formGroup]="signInForm">
+    <mat-form-field>
+      <label>
+        <input formControlName="username" matInput placeholder="username" type="text">
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <label>
+        <input formControlName="password" matInput placeholder="password" type="password">
+      </label>
+    </mat-form-field>
+
+    <button [disabled]="!signInForm.valid" mat-button type="submit">Sign In</button>
+  </form>
+</ng-container>
+
+<ng-template #userIsLoggedIn>
+  <button mat-button color="primary" type="button" (click)="signOut()">Sign Out, {{currentUser.username}}</button>
+</ng-template>

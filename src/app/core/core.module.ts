@@ -3,12 +3,13 @@ import {CommonModule} from '@angular/common';
 import {AuthModule} from './auth/auth.module';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth.guard';
+import {MaterialModule} from './material/material.module';
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
-    AuthModule
+    AuthModule,
+    MaterialModule
   ],
   providers: [
     AuthService,
