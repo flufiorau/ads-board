@@ -1,15 +1,16 @@
 import {Injectable} from '@angular/core';
 import {User} from './user';
-import {Observable} from 'rxjs';
-import {throwError} from 'rxjs/internal/observable/throwError';
+import {BehaviorSubject} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private appUsers: Array<User>;
+  currentUser = new BehaviorSubject<string>(undefined);
 
-  constructor() {
+  constructor(private snackBar: MatSnackBar) {
     this.getUsers();
   }
 
@@ -22,24 +23,26 @@ export class AuthService {
   }
 
 
-  signOut(user: User): void {
+  signOut(): void {
     localStorage.removeItem('currentUser');
+    this.currentUser.next(undefined);
   }
 
-  getCurrentUser(): Observable<User> {
+  getCurrentUser(): void {
     if (localStorage.getItem('currentUser')) {
-      return JSON.parse(localStorage.getItem('currentUser'));
-    } else {
-      return throwError(`user isn't loggedIn`);
+      this.currentUser.next(localStorage.getItem('currentUser'));
     }
   }
 
   public showPopUp(message: string) {
-    console.log(message);
+    this.snackBar.open(message, `Ok`, {
+      duration: 1500,
+      verticalPosition: 'top'
+    });
   }
 
   private getUsers(): void {
-    this.appUsers = JSON.parse(localStorage.getItem('usersList'));
+    this.appUsers = JSON.parse(localStorage.getItem('usersList')) || [];
   }
 
   private addUser(user: User): void {
@@ -49,13 +52,16 @@ export class AuthService {
     }
     this.appUsers.push(user);
     localStorage.setItem('usersList', JSON.stringify(this.appUsers));
+    localStorage.setItem('currentUser', user.username);
+    this.currentUser.next(localStorage.getItem('currentUser'));
   }
 
   private verifyUser(user: User): boolean {
     if (this.appUsers.length && this.appUsers.find((appUser) => user.username === appUser.username)) {
       this.appUsers.find((appUser) => {
         if (user.username === appUser.username && user.password === appUser.password) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
+          localStorage.setItem('currentUser', user.username);
+          this.currentUser.next(localStorage.getItem('currentUser'));
           return true;
         } else {
           this.showPopUp('Пароль пользователя не корректен');

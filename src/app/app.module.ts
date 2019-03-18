@@ -14,6 +14,7 @@ import {MaterialModule} from './core/material/material.module';
 import {AdComponent} from './ads/ad/ad.component';
 import {AdListComponent} from './ads/ad-list/ad-list.component';
 import {AdEditComponent} from './ads/ad-edit/ad-edit.component';
+import {AdShowComponent} from './ads/ad-show/ad-show.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {AdEditComponent} from './ads/ad-edit/ad-edit.component';
     AdsComponent,
     AdComponent,
     AdListComponent,
-    AdEditComponent
+    AdEditComponent,
+    AdShowComponent
   ],
   imports: [
     BrowserModule,

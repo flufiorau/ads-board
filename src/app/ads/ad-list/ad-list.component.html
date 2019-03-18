@@ -1,3 +1,17 @@
-<p>
-  ad-list works!
-</p>
+<mat-card>
+  <ng-container *ngIf="adDataSource?.content[0].ads.length else nothingToShowOnBoard">
+    <ng-container *ngFor="let ad of adDataSource.content[pageEvent.pageIndex].ads">
+      <app-ad [ad]="ad"></app-ad>
+    </ng-container>
+    <mat-card-footer>
+      <mat-paginator (page)="pageEvent = $event"
+                     [length]="length"
+                     [pageSize]="pageSize">
+      </mat-paginator>
+    </mat-card-footer>
+  </ng-container>
+  <ng-template #nothingToShowOnBoard>
+    <h3>This Board is Empty</h3>
+  </ng-template>
+
+</mat-card>

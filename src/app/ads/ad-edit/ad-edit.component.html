@@ -1,3 +1,23 @@
-<p>
-  ad-edit works!
-</p>
+<mat-card>
+  <form (submit)="editAdMode ? updateAd() : createAd()" [formGroup]="AdForm" class="flex-wrapper">
+    <mat-form-field>
+      <label>
+        <input formControlName="title" matInput placeholder="* title" type="text">
+      </label>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea formControlName="description" matInput placeholder="* description"></textarea>
+    </mat-form-field>
+    <div class="flex-wrapper">
+      <button *ngIf="editAdMode"
+              [disabled]="!AdForm.valid" color="accent" mat-raised-button type="submit">Save Ad
+      </button>
+      <button *ngIf="!editAdMode"
+              [disabled]="!AdForm.valid" color="accent" mat-raised-button type="submit">Create Ad
+      </button>
+      <br>
+      <button mat-button mat-stroked-button routerLink="/" type="button">Cancel</button>
+    </div>
+  </form>
+</mat-card>

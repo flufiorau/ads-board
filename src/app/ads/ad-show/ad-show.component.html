@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-title>
+    {{currentAd.title}}
+  </mat-card-title>
+  <mat-card-content>
+    <p class="description">{{currentAd.description}}</p>
+    <p>Created: {{currentAd.createdDate | date:'yyyy/MMM/dd'}}</p>
+    <p>Author: {{currentAd.author}}</p>
+  </mat-card-content>
+  <div class="flex-wrapper">
+    <ng-container *ngIf="hasAccess">
+      <button color="primary" mat-raised-button routerLink="/edit/{{currentAd.id}}" type="button">Edit Ad</button>
+      <button (click)="deleteAd()" color="warn" mat-raised-button type="button">Delete Ad</button>
+    </ng-container>
+    <button color="accent" mat-raised-button routerLink="/" type="button">Back to board</button>
+  </div>
+</mat-card>

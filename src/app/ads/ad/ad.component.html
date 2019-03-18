@@ -1,3 +1,27 @@
-<p>
-  ad works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <div style="display: flex;">
+        <a routerLink="{{ad.id}}"><h1>{{ad.title}}</h1></a>
+        <ng-container *ngIf="hasAccess">
+          <span>
+            <button (click)="editAd()" color="warn" mat-icon-button title="[ edit Ad ]">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </span>
+          <span>
+            <button (click)="deleteAd()" color="warn" mat-icon-button title="[ delete Ad ]">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </span>
+        </ng-container>
+      </div>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p class="description">{{ad.description}}</p>
+    <p>Created: {{ad.createdDate | date:'yyyy/MMM/dd'}}</p>
+    <p>Author: {{ad.author}}</p>
+  </mat-card-content>
+</mat-card>

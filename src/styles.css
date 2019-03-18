@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "../node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css";
 
 html, body {
   height: 100%;
@@ -8,4 +8,31 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+button {
+  width: 100%;
+}
+
+.mat-snack-bar-handset .mat-snack-bar-container {
+  margin: auto !important;
+  max-width: 100%;
+  min-width: 0;
+  width: auto !important;
+}
+
+a:visited, a:link {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.flex-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.description {
+  font-size: 1.5em;
 }

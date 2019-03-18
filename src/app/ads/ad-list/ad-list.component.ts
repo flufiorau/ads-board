@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {AdsDataSource} from '../interfaces';
+import {AdsService} from '../ads.service';
+import {PageEvent} from '@angular/material';
 
 @Component({
   selector: 'app-ad-list',
@@ -6,11 +9,25 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./ad-list.component.css']
 })
 export class AdListComponent implements OnInit {
+  adDataSource: AdsDataSource;
+  length: number;
+  pageSize = 5;
 
-  constructor() {
+  // MatPaginator Output
+  pageEvent = new PageEvent();
+
+  constructor(private adsService: AdsService) {
+    this.pageEvent.pageIndex = 0;
   }
 
   ngOnInit() {
+    this.adsService.getAdsDataFromStorage();
+    this.adsService.adsPageableList.subscribe((data) => {
+      if (data) {
+        this.adDataSource = data;
+        this.length = data.totalElements;
+      }
+    });
   }
 
 }
