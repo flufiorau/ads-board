@@ -15,6 +15,7 @@ import {AdComponent} from './ads/ad/ad.component';
 import {AdListComponent} from './ads/ad-list/ad-list.component';
 import {AdEditComponent} from './ads/ad-edit/ad-edit.component';
 import {AdShowComponent} from './ads/ad-show/ad-show.component';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import {AdShowComponent} from './ads/ad-show/ad-show.component';
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

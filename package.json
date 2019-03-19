@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
-    "build": "ng build",
+    "build": "ng build --aot --configuration=production --output-path=dist/ads-board --output-hashing=all --source-map=false --vendor-chunk=false --common-chunk=false --named-chunks=false --extract-licenses=false --build-optimizer=true --optimization=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
