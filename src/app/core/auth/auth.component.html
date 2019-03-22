@@ -1,20 +1,20 @@
 <ng-container *ngIf="!currentUser; else userIsLoggedIn">
 
-    <form (submit)="signIn()" [formGroup]="signInForm" class="flex-wrapper">
-      <mat-form-field>
-        <label>
-          <input formControlName="username" matInput placeholder="username" type="text">
-        </label>
-      </mat-form-field>
+  <form (submit)="signIn()" [formGroup]="signInForm" class="flex-wrapper">
+    <mat-form-field>
+      <label>
+        <input formControlName="username" matInput placeholder="username" type="text">
+      </label>
+    </mat-form-field>
 
-      <mat-form-field>
-        <label>
-          <input formControlName="password" matInput placeholder="password" type="password">
-        </label>
-      </mat-form-field>
+    <mat-form-field>
+      <label>
+        <input formControlName="password" matInput placeholder="password" type="password">
+      </label>
+    </mat-form-field>
+    <button [disabled]="!signInForm.valid" color="accent" mat-raised-button type="submit">Sign In</button>
 
-      <button [disabled]="!signInForm.valid" color="accent" mat-raised-button type="submit">Sign In</button>
-    </form>
+  </form>
 
 </ng-container>
 

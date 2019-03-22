@@ -1,4 +1,7 @@
 <mat-card>
+  <mat-card-title>
+    <h1>{{pageTitle}}</h1>
+  </mat-card-title>
   <form (submit)="editAdMode ? updateAd() : createAd()" [formGroup]="AdForm" class="flex-wrapper">
     <mat-form-field>
       <label>

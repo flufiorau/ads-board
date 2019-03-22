@@ -17,6 +17,8 @@ export class AdEditComponent implements OnInit {
   currentAd: Ad;
   title = new BehaviorSubject<string>('');
   description = new BehaviorSubject<string>('');
+  areCreateAd = true;
+  pageTitle = 'New ad creation form';
 
   constructor(private adsService: AdsService,
               private router: Router) {
@@ -32,10 +34,16 @@ export class AdEditComponent implements OnInit {
       const id = parseFloat(listOfRoute[listOfRoute.length - 1]);
       this.adsService.getAdById(id).subscribe(
         (selectedAd: Ad) => {
-          this.currentAd = selectedAd;
-          this.title.next(selectedAd.title);
-          this.description.next(selectedAd.description);
-          this.editAdMode = true;
+          if (selectedAd) {
+            this.areCreateAd = false;
+            this.pageTitle = 'Edit existing ad form';
+            this.currentAd = selectedAd;
+            this.title.next(selectedAd.title);
+            this.description.next(selectedAd.description);
+            this.editAdMode = true;
+          } else {
+            this.router.navigateByUrl('/edit');
+          }
         }
       );
     }

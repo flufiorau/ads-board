@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="currentAd">
   <mat-card-title>
     {{currentAd.title}}
   </mat-card-title>
@@ -12,6 +12,18 @@
       <button color="primary" mat-raised-button routerLink="/edit/{{currentAd.id}}" type="button">Edit Ad</button>
       <button (click)="deleteAd()" color="warn" mat-raised-button type="button">Delete Ad</button>
     </ng-container>
+    <button color="accent" mat-raised-button routerLink="/" type="button">Back to board</button>
+  </div>
+</mat-card>
+<mat-card *ngIf="!currentAd">
+  <mat-card-title>
+    <h1>404</h1>
+  </mat-card-title>
+  <mat-card-subtitle>
+    <h2>Sorry, but this ad or route not found!</h2>
+  </mat-card-subtitle>
+  <div class="flex-wrapper">
+    <button (click)="toPreviousPage()" color="warn" mat-raised-button type="button">Previous Page</button>
     <button color="accent" mat-raised-button routerLink="/" type="button">Back to board</button>
   </div>
 </mat-card>

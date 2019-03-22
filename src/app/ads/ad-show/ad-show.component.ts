@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {AdsService} from '../ads.service';
 import {Ad} from '../interfaces';
 import {AuthService} from '../../core/auth/auth.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-ad-show',
@@ -11,30 +12,37 @@ import {AuthService} from '../../core/auth/auth.service';
 })
 export class AdShowComponent implements OnInit {
 
+  adId: number;
   currentAd: Ad;
   currentUser: string;
   hasAccess = false;
 
   constructor(private router: Router,
+              private location: Location,
               private adsService: AdsService,
               private authService: AuthService) {
+    this.adId = +this.router.url.slice(1);
     this.getCurrentUser();
-    this.adsService.getAdById(+this.router.url.slice(1)).subscribe(
+    this.adsService.getAdById(this.adId).subscribe(
       (selectedAd) => {
-        this.currentAd = selectedAd;
+        if (selectedAd) {
+          this.currentAd = selectedAd;
+        }
       }
     );
   }
 
   ngOnInit() {
-    this.getCurrentUser();
-    this.authService.currentUser.subscribe((user: string) => {
-        if (user) {
-          this.currentUser = user;
-          this.hasAccess = this.currentAd.author === this.currentUser;
+    if (this.currentAd) {
+      this.getCurrentUser();
+      this.authService.currentUser.subscribe((user: string) => {
+          if (user) {
+            this.currentUser = user;
+            this.hasAccess = this.currentAd.author === this.currentUser;
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   getCurrentUser(): any {
@@ -45,6 +53,10 @@ export class AdShowComponent implements OnInit {
     this.adsService.deleteAd(this.currentAd.id).subscribe(
       () => this.router.navigateByUrl(`/`)
     );
+  }
+
+  toPreviousPage(): void {
+    this.location.back();
   }
 
 }
