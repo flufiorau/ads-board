@@ -14,7 +14,6 @@ export class AuthComponent implements OnInit {
   currentUser: string;
   signInForm: FormGroup;
   signUpForm: FormGroup;
-  userWantDoSignUp = false;
 
   constructor(private authService: AuthService,
               private router: Router) {
@@ -26,20 +25,6 @@ export class AuthComponent implements OnInit {
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
-    this.signUpForm = new FormGroup({
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      passwordRepeat: new FormControl('', [Validators.required])
-    }, passwordMatchValidator);
-
-    function passwordMatchValidator(g: FormGroup) {
-      if (g.get('passwordRepeat').dirty) {
-        if (g.get('password').value !== '') {
-          return g.get('password').value === g.get('passwordRepeat').value ? null : {mismatch: true};
-        }
-      }
-      return {mismatch: true};
-    }
 
     this.authService.currentUser.subscribe((user: string) => {
         this.currentUser = user;
@@ -59,10 +44,6 @@ export class AuthComponent implements OnInit {
 
   signIn() {
     this.authService.signIn(this.signInForm.value);
-  }
-
-  signUp() {
-    this.authService.signUp(this.signUpForm.value);
   }
 
   createAd() {

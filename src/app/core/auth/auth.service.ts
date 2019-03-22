@@ -46,10 +46,6 @@ export class AuthService {
   }
 
   private addUser(user: User): void {
-    if (this.appUsers.length && this.appUsers.find((appUser) => user.username === appUser.username)) {
-      this.showPopUp('Такой пользователь уже создан');
-      return;
-    }
     this.appUsers.push(user);
     localStorage.setItem('usersList', JSON.stringify(this.appUsers));
     localStorage.setItem('currentUser', user.username);
@@ -69,7 +65,7 @@ export class AuthService {
         }
       });
     } else {
-      this.showPopUp('Такого пользователя не существует');
+      this.signUp(user);
       return false;
     }
   }
